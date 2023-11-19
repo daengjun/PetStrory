@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/my_page_pet_imageView"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:orientation="horizontal"
+    app:cardCornerRadius="50dp"
+    app:cardElevation="0dp"
+    app:strokeColor="#ACACAE"
+    app:strokeWidth="2dp">
+
+    <ImageView
+        android:id="@+id/my_page_pet_image"
+        android:layout_width="match_parent"
+        android:padding="5dp"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/baseline_pets_24" />
+</com.google.android.material.card.MaterialCardView>

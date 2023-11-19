@@ -1,0 +1,6 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- 배경으로 사용될 벡터 드로어블을 호출하고 크기를 조절합니다. -->
+    <item android:drawable="@drawable/ic_image"
+        android:width="10dp"
+        android:height="10dp"/>
+</layer-list>

@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="40dp"
+                android:background="@drawable/button_border_color"
+                android:padding="5dp">
+
+                <Spinner
+                    android:id="@+id/categorySpinner"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:spinnerMode="dropdown" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="15dp">
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView1"
+                    android:layout_width="300dp"
+                    android:layout_height="300dp"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="1dp"
+                    app:cardCornerRadius="10dp">
+
+                    <ImageView
+                        android:id="@+id/postImg1"
+                        android:layout_width="300dp"
+                        android:layout_height="300dp"
+                        android:layout_gravity="center"
+                        android:scaleX="0.2"
+                        android:scaleY="0.2"
+                        android:src="@drawable/icon_new_post" />
+
+                </androidx.cardview.widget.CardView>
+
+                <ImageView
+                    android:id="@+id/deletePostImg1"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignTop="@id/cardView1"
+                    android:layout_alignRight="@+id/cardView1"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="5dp"
+                    android:elevation="10dp"
+                    android:src="@drawable/icon_cancel"
+                    android:visibility="invisible" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="80dp"
+                    android:layout_height="60dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView2"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="1dp"
+                        app:cardCornerRadius="10dp">
+
+                        <ImageView
+                            android:id="@+id/postImg2"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:scaleX="0.5"
+                            android:scaleY="0.5"
+                            android:src="@drawable/icon_new_post" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <ImageView
+                        android:id="@+id/deletePostImg2"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignTop="@id/cardView2"
+                        android:layout_alignRight="@+id/cardView2"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:elevation="10dp"
+                        android:src="@drawable/icon_cancel"
+                        android:visibility="invisible" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="80dp"
+                    android:layout_height="60dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView3"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="1dp"
+                        android:background="@drawable/button"
+                        app:cardCornerRadius="10dp">
+
+                        <ImageView
+                            android:id="@+id/postImg3"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:scaleX="0.5"
+                            android:scaleY="0.5"
+                            android:src="@drawable/icon_new_post" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <ImageView
+                        android:id="@+id/deletePostImg3"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignTop="@id/cardView3"
+                        android:layout_alignRight="@id/cardView3"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:elevation="10dp"
+                        android:src="@drawable/icon_cancel"
+                        android:visibility="invisible" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="80dp"
+                    android:layout_height="60dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView4"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="1dp"
+                        android:background="@drawable/button"
+                        app:cardCornerRadius="10dp">
+
+                        <ImageView
+                            android:id="@+id/postImg4"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:scaleX="0.5"
+                            android:scaleY="0.5"
+                            android:src="@drawable/icon_new_post" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <ImageView
+                        android:id="@+id/deletePostImg4"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignTop="@id/cardView4"
+                        android:layout_alignRight="@id/cardView4"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:elevation="10dp"
+                        android:src="@drawable/icon_cancel"
+                        android:visibility="invisible" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="80dp"
+                    android:layout_height="60dp">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView5"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="1dp"
+                        android:background="@drawable/button"
+                        app:cardCornerRadius="10dp">
+
+                        <ImageView
+                            android:id="@+id/postImg5"
+                            android:layout_width="60dp"
+                            android:layout_height="60dp"
+                            android:scaleX="0.5"
+                            android:scaleY="0.5"
+                            android:src="@drawable/icon_new_post" />
+
+                    </androidx.cardview.widget.CardView>
+
+                    <ImageView
+                        android:id="@+id/deletePostImg5"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignTop="@id/cardView5"
+                        android:layout_alignRight="@id/cardView5"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginEnd="2dp"
+                        android:elevation="10dp"
+                        android:src="@drawable/icon_cancel"
+                        android:visibility="invisible" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="300dp"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/contents"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/contents_input_border"
+                    android:gravity="top|start"
+                    android:hint="내용을 입력해주세요."
+                    android:inputType="textMultiLine"
+                    android:lines="6"
+                    android:maxLength="100"
+                    android:padding="20dp" />
+
+                <TextView
+                    android:id="@+id/contentsLengthTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/contents"
+                    android:layout_alignRight="@+id/contents"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="20dp"
+                    android:text="0 / 100" />
+
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/postButton"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/button3"
+                android:foreground="?attr/selectableItemBackground"
+                android:shadowColor="#000000"
+                android:shadowDx="2"
+                android:shadowDy="2"
+                android:shadowRadius="4"
+                android:text="게시글 등록"
+                android:textColor="#FFFFFF"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <include
+        layout="@layout/view_loader"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+</RelativeLayout>
+

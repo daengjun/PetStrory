@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#EAEFF8"
+            android:layout_marginBottom="30dp">
+
+            <!-- 이미지뷰 -->
+            <ImageView
+                android:layout_marginStart="100dp"
+                android:layout_gravity="center_vertical"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/baseline_person_remove_24" />
+
+            <!-- 텍스트뷰 -->
+            <TextView
+                android:layout_gravity="center"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:text="회원 탈퇴"
+                android:textColor="#9E000000"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+        </FrameLayout>
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:text="정말 탈퇴하시겠습니까?"
+            android:textSize="30dp"
+            android:textStyle="bold">
+
+        </TextView>
+
+
+        <EditText
+            android:hint="사유를 적어주세요."
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="10"
+            android:background="@drawable/button"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="15dp"/>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/leaveButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="탈퇴"
+                android:padding="5dp"
+                android:background="@drawable/button2"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"/>
+
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="취소"
+                android:padding="5dp"
+                android:background="@drawable/button2"
+                android:layout_weight="1"
+                android:layout_marginLeft="10dp"/>
+
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</ScrollView>
