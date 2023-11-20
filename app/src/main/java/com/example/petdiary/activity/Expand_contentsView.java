@@ -50,7 +50,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
 
-import java.util.ArrayList;
 import java.util.Hashtable;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
@@ -62,7 +61,7 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 public class Expand_contentsView extends AppCompatActivity implements calbacklistener {
 
-    private static com.example.petdiary.util.calbacklistener calbacklistener;
+    private static com.example.petdiary.util.calbacklistener calBackListener;
     private String friendChecked;
     private String bookmarkChecked;
     private String likeChecked;
@@ -74,12 +73,11 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
     private String imageUrl4;
     private String imageUrl5;
     private String content;
-    private ArrayList<String> hashTag = new ArrayList<String>();
     private String date = "";
     private String nickName;
     private String Category;
     private int favoriteCount;
-    Activity activity;
+    private Activity activity;
 
 
     ViewPageAdapterDetail viewPageAdapter;
@@ -91,9 +89,9 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
     TextView LikeText;
 
     private Button Comment_btn;
-    //파이어베이스에서 내 uid 가져오기
+    //내 uid 가져 오기
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    String myuid_server = user.getUid();
+    String my_uid_server = user.getUid();
 
     private CheckBox bookmark_button;
     private CheckBox Like_button;
@@ -102,20 +100,17 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_expand__image_view);
-        overridePendingTransition(R.anim.fade_in, R.anim.none);
-
+        setContentView(R.layout.activity_expand_image_view);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         activity = this;
 
         Intent intent = getIntent();
         friendChecked = intent.getStringExtra("friend");
-        Log.d("dsd", "friendCheck: " + friendChecked);
+        Log.e("TAG", "friendCheck" + friendChecked);
         likeChecked = intent.getStringExtra("postLike");
         bookmarkChecked = intent.getStringExtra("bookmark");
         postID = intent.getStringExtra("postID");
-        Log.d("DSD", "onCreate: postID값" + postID);
+        Log.e("TAG", "postID값" + postID);
         uid = intent.getStringExtra("uid");
         nickName = intent.getStringExtra("nickName");
         date = intent.getStringExtra("date");
@@ -126,18 +121,13 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
         imageUrl4 = intent.getStringExtra("imageUrl4");
         imageUrl5 = intent.getStringExtra("imageUrl5");
         favoriteCount = intent.getIntExtra("favoriteCount", 0);
-
-        Log.d("dsd", "onCreate: favori" + favoriteCount);
+        Log.e("TAG", "favorite" + favoriteCount);
         Category = intent.getStringExtra("category");
-
-
         Comment_btn = (Button) findViewById(R.id.Comment_btn);
-
         Comment_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Comment.class);
-
                 intent.putExtra("postID", postID);
                 intent.putExtra("nickName", nickName);
                 intent.putExtra("uid", uid);
@@ -147,9 +137,7 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
                 intent.putExtra("image3", imageUrl3);
                 intent.putExtra("image4", imageUrl4);
                 intent.putExtra("image5", imageUrl5);
-
                 getApplicationContext().startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK));
-
             }
         });
         final ImageView profileImage = (ImageView) findViewById(R.id.Profile_image);
@@ -180,6 +168,9 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
         wormDotsIndicator.setVisibility(View.GONE);
         viewPager = (ViewPager) findViewById(R.id.main_image);
         post_content = findViewById(R.id.main_textView);
+
+        overridePendingTransition(R.anim.fade_in, R.anim.none);
+
 
         if (!imageUrl1.equals("https://firebasestorage.googleapis.com/v0/b/petdiary-794c6.appspot.com/o/images%2Fempty.png?alt=media&token=c41b1cc0-d610-4964-b00c-2638d4bfd8bd")) {
             Log.e("###111", viewPager.getCurrentItem() + " ");
@@ -246,15 +237,14 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
 
         findViewById(R.id.onPopupButton).setOnClickListener(new View.OnClickListener() {
             //내 uid
-            String myuid = myuid_server;
+            String myuid = my_uid_server;
             //게시글 uid
             String content_uid = uid;
 
             @Override
 
             public void onClick(final View view) {
-                Log.d("@@@@", "onClick: 포스트아이디가 뭐야?" + postID);
-
+                Log.e("TAG", "Post ID :" + postID);
                 if (myuid.equals(content_uid)) {
                     CharSequence info[] = new CharSequence[]{"Edit", "Delete", "Share"};
 
@@ -280,12 +270,12 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
                                     intent.putExtra("category", Category);
                                     startActivityForResult(intent, 0);
 
-                                    ContentEditActivity.setlistener(calbacklistener);
+                                    ContentEditActivity.setlistener(calBackListener);
 //                                    Toast.makeText(view.getContext(), "Edit", Toast.LENGTH_SHORT).show();
                                     break;
                                 case 1:
+                                    // 게시글 삭제
                                     EXpandPostDelete(view);
-                                    // 로그아웃
                                     break;
                                 case 2:
                                     FirebaseDynamicLinks.getInstance().createDynamicLink()
@@ -382,7 +372,7 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
                                                         FriendInfo friendInfo = new FriendInfo();
                                                         friend.setValue(friendInfo);
                                                         Log.d("ㅇㄴㅇㄴ", "onSuccess: 사용자 차단");
-                                                        calbacklistener.refresh(true);
+                                                        calBackListener.refresh(true);
                                                     }
                                                 })
                                                 .addOnFailureListener(new OnFailureListener() {
@@ -460,7 +450,7 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
                                         friend.setValue(numbers);
 
                                         Toast.makeText(getApplicationContext(), "친구 추가 완료", Toast.LENGTH_SHORT).show();
-                                        calbacklistener.refresh(true);
+                                        calBackListener.refresh(true);
                                         break;
                                     case 1:
 
@@ -488,7 +478,7 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
                                                         DatabaseReference friend = firebaseDatabase.getReference("friend").child(user.getUid() + "/" + uid);
                                                         FriendInfo friendInfo = new FriendInfo();
                                                         friend.setValue(friendInfo);
-                                                        calbacklistener.refresh(true);
+                                                        calBackListener.refresh(true);
                                                     }
                                                 })
                                                 .addOnFailureListener(new OnFailureListener() {
@@ -573,7 +563,7 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    calbacklistener.refresh(true);
+                                    calBackListener.refresh(true);
 
                                 }
                             })
@@ -588,7 +578,7 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    calbacklistener.refresh(true);
+                                    calBackListener.refresh(true);
                                     Log.d("CustomAdapter", "DocumentSnapshot successfully deleted!");
                                 }
                             })
@@ -636,7 +626,7 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
-                                                    calbacklistener.refresh(true);
+                                                    calBackListener.refresh(true);
                                                     Log.d("성공", "DocumentSnapshot successfully updated!");
                                                 }
                                             })
@@ -677,7 +667,7 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
                                                 public void onSuccess(Void aVoid) {
-                                                    calbacklistener.refresh(true);
+                                                    calBackListener.refresh(true);
                                                     Log.d("성공", "DocumentSnapshot successfully updated!");
                                                 }
                                             })
@@ -766,7 +756,7 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
                         FriendInfo friendInfo = new FriendInfo();
                         friend.setValue(friendInfo);
                         Toast.makeText(getApplicationContext(), "친구를 삭제하였습니다.", Toast.LENGTH_SHORT).show();
-                        calbacklistener.refresh(true);
+                        calBackListener.refresh(true);
                     }
                 })
                 .setNegativeButton("취소", new DialogInterface.OnClickListener() {
@@ -781,31 +771,23 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
     }
 
 
-    //게시글 삭제
+    // 게시글 삭제
     public void EXpandPostDelete(final View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
-
 
         builder.setTitle("정말 삭제하시겠습니까?")
                 .setCancelable(false)
                 .setPositiveButton("확인", new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int whichButton) {
-
                         FirebaseStorage storage = FirebaseStorage.getInstance();
                         final StorageReference storageRef = storage.getReference();
 // Create a reference to the file to delete
 
-
-                        Log.d("dsd", "onClick: " + postID);
+                        Log.e("TAG", "Post ID : " + postID);
 
                         String[] splitText = postID.split("_");
-
-                        Log.d("splitText", "onClick: splitText의값은" + splitText[0] + "_" + splitText[1]);
-
-
                         String image[] = new String[5];
-
                         image[0] = imageUrl1;
                         image[1] = imageUrl1;
                         image[2] = imageUrl1;
@@ -816,7 +798,6 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
 
                             if (image[i] != null) {
                                 StorageReference desertRef = storageRef.child("images/" + splitText[0] + "_" + splitText[1] + "_postImg_" + i);
-
 // Delete the file
                                 desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
@@ -840,7 +821,7 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
 
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        calbacklistener.refresh(true);
+                                        calBackListener.refresh(true);
                                         onBackPressed();
                                         Log.d("@@@", "오류가나는이유가뭐야?!");
 
@@ -879,31 +860,25 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
 
     @Override
     public void refresh(boolean check) {
-
     }
 
     @Override
     public void friendContents(boolean check) {
-
     }
 
 
-    public static void setlistener(calbacklistener listener) {
-
-        calbacklistener = listener;
+    public static void setListener(calbacklistener listener) {
+        calBackListener = listener;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("dsd", "onResume: " + imageUrl1);
-        Log.d("dsd", "onResume: " + viewPageAdapter);
     }
 
     @Override
     public void onUserInteraction() {
         super.onUserInteraction();
-        Log.d("ㅇㄴㅇ", "onUserInteraction: 왜왜왜왜");
     }
 
     @Override

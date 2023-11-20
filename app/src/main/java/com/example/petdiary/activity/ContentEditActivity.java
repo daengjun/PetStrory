@@ -301,8 +301,10 @@ public class ContentEditActivity extends AppCompatActivity {
             }
         }
         if (count == 1) {
+            postImg[0].setScaleX(0.2F);
+            postImg[0].setScaleY(0.2F);
             postImgCheck[0] = 0;
-            postImg[0].setImageResource(R.drawable.ic_baseline_add_24);
+            postImg[0].setImageResource(R.drawable.icon_new_post);
             deletePostImg[0].setVisibility(View.INVISIBLE);
             img[0] = null;
         } else {
@@ -311,8 +313,10 @@ public class ContentEditActivity extends AppCompatActivity {
                 Glide.with(getApplicationContext()).load(img[i - 1]).centerCrop().override(500).into(postImg[i - 1]);
             }
             postImgCheck[count - 1] = 0;
-            postImg[count - 1].setImageResource(R.drawable.ic_baseline_add_24);
+            postImg[count - 1].setImageResource(R.drawable.icon_new_post);
             deletePostImg[count - 1].setVisibility(View.INVISIBLE);
+            postImg[count - 1].setScaleX(0.5F);
+            postImg[count - 1].setScaleY(0.5F);
             img[count - 1] = null;
         }
         postNumCheck--;
@@ -355,7 +359,10 @@ public class ContentEditActivity extends AppCompatActivity {
 
     //이미지 설정
     private void setPostImg(String postImgPath) {
+
         if (postImgCheck[0] == 0) {
+            postImg[0].setScaleX(1);
+            postImg[0].setScaleY(1);
             Glide.with(this).load(postImgPath).centerCrop().override(500).into(postImg[0]);
             img[0] = postImgPath;
             Log.d("@@@@", "setPostImg: 값은 " + img[0]);
@@ -363,30 +370,40 @@ public class ContentEditActivity extends AppCompatActivity {
             postNumCheck = 1;
             deletePostImg[0].setVisibility(View.VISIBLE);
         } else if (postImgCheck[1] == 0) {
+            postImg[1].setScaleX(1);
+            postImg[1].setScaleY(1);
             Glide.with(this).load(postImgPath).centerCrop().override(500).into(postImg[1]);
             img[1] = postImgPath;
             postImgCheck[1] = 1;
             postNumCheck = 2;
             deletePostImg[1].setVisibility(View.VISIBLE);
         } else if (postImgCheck[2] == 0) {
+            postImg[2].setScaleX(1);
+            postImg[2].setScaleY(1);
             Glide.with(this).load(postImgPath).centerCrop().override(500).into(postImg[2]);
             img[2] = postImgPath;
             postImgCheck[2] = 1;
             postNumCheck = 3;
             deletePostImg[2].setVisibility(View.VISIBLE);
         } else if (postImgCheck[3] == 0) {
+            postImg[3].setScaleX(1);
+            postImg[3].setScaleY(1);
             Glide.with(this).load(postImgPath).centerCrop().override(500).into(postImg[3]);
             img[3] = postImgPath;
             postImgCheck[3] = 1;
             postNumCheck = 4;
             deletePostImg[3].setVisibility(View.VISIBLE);
         } else if (postImgCheck[4] == 0) {
+            postImg[4].setScaleX(1);
+            postImg[4].setScaleY(1);
             Glide.with(this).load(postImgPath).centerCrop().override(500).into(postImg[4]);
             img[4] = postImgPath;
             postImgCheck[4] = 1;
             postNumCheck = 5;
             deletePostImg[4].setVisibility(View.VISIBLE);
         } else if (postImgCheck[0] == 1 && postImgCheck[1] == 1 && postImgCheck[2] == 1 && postImgCheck[3] == 1 && postImgCheck[4] == 1) {
+            postImg[choiceNum].setScaleX(1);
+            postImg[choiceNum].setScaleY(1);
             Glide.with(this).load(postImgPath).centerCrop().override(500).into(postImg[choiceNum]);
             img[choiceNum] = postImgPath;
         }

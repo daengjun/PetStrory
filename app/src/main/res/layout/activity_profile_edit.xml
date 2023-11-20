@@ -26,7 +26,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="90dp"
-        android:backgroundTint="@color/cardview_dark_background"
         app:cardCornerRadius="100dp"
         app:cardElevation="10dp">
 
@@ -37,9 +36,7 @@
             android:layout_centerHorizontal="true"
             android:padding="10dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/icon_person"
-
-            />
+            android:src="@drawable/icon_person"/>
     </androidx.cardview.widget.CardView>
 
 

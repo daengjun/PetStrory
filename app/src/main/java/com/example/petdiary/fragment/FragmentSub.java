@@ -389,7 +389,7 @@ public class FragmentSub extends Fragment implements calbacklistener {
                                                                 intent.putExtra("favoriteCount", arrayList.get(finalI).getFavoriteCount());
                                                                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                                 getContext().startActivity(intent);
-                                                                Expand_contentsView.setlistener(calbacklistener);
+                                                                Expand_contentsView.setListener(calbacklistener);
                                                             } else {
                                                                 Log.d("###", "Error getting documents: ", task.getException());
                                                             }

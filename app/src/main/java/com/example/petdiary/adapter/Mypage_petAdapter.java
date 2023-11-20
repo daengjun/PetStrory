@@ -64,6 +64,7 @@ public class Mypage_petAdapter extends RecyclerView.Adapter<Mypage_petAdapter.My
         String url = arrayList.get(position).getImageUrl();
 
         if (!url.equals("")) {
+            holder.postImage.setPadding(0,0,0,0);
             Glide.with(context).load(url).centerCrop().override(500).into(holder.postImage);
         } else {
             Glide.with(context).load(R.drawable.baseline_pets_24).centerCrop().override(500).into(holder.postImage);

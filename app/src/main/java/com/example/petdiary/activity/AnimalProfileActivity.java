@@ -166,17 +166,16 @@ public class AnimalProfileActivity extends AppCompatActivity {
                     break;
                 case R.id.animalPage_save:
 
-                    if(!petName.getText().toString().equals("")){
+                    if (!petName.getText().toString().equals("")) {
                         isPressedSaveBtn = true;
                         isEditMode = false;
                     }
 
                     if (isAddMode) {
 
-                        if(petName.getText().toString().equals("")){
-                            Toast.makeText(getApplicationContext(),"펫 이름을 등록 해주세요",Toast.LENGTH_SHORT).show();
-                        }
-                        else{
+                        if (petName.getText().toString().equals("")) {
+                            Toast.makeText(getApplicationContext(), "펫 이름을 등록 해주세요", Toast.LENGTH_SHORT).show();
+                        } else {
                             loaderLayout.setVisibility(View.VISIBLE);
 
                             addDataToFirebase();
@@ -185,10 +184,9 @@ public class AnimalProfileActivity extends AppCompatActivity {
                         // 추가 모드
                     } else {
 
-                        if(petName.getText().toString().equals("")){
-                            Toast.makeText(getApplicationContext(),"펫 이름을 등록 해주세요",Toast.LENGTH_SHORT).show();
-                        }
-                        else{
+                        if (petName.getText().toString().equals("")) {
+                            Toast.makeText(getApplicationContext(), "펫 이름을 등록 해주세요", Toast.LENGTH_SHORT).show();
+                        } else {
                             loaderLayout.setVisibility(View.VISIBLE);
 
                             saveDataToFirebase();
@@ -288,11 +286,11 @@ public class AnimalProfileActivity extends AppCompatActivity {
             //  isEdit = true;
             petName.setBackground(getBaseContext().getResources().getDrawable(R.drawable.text_shape_coners));
             petName.setFocusableInTouchMode(true);
-            petName.setGravity(Gravity.TOP|Gravity.START);
+            petName.setGravity(Gravity.TOP | Gravity.START);
 
             petMemo.setBackground(getBaseContext().getResources().getDrawable(R.drawable.text_shape_coners));
             petMemo.setFocusableInTouchMode(true);
-            petMemo.setGravity(Gravity.TOP|Gravity.START);
+            petMemo.setGravity(Gravity.TOP | Gravity.START);
 
             saveBtn.setVisibility(View.VISIBLE);
             cancelBtn.setVisibility(View.VISIBLE);
@@ -317,9 +315,11 @@ public class AnimalProfileActivity extends AppCompatActivity {
     private void setProfileImg(String profileImg) {
         if (profileImg == null || profileImg.equals("")) {
 //            Glide.with(this).load("https://t1.daumcdn.net/cfile/tistory/9971E63E5BDAF4A809").centerCrop().override(500).into(petImg);
-        }
-        else{
-            Glide.with(this).load(profileImg).centerCrop().override(500).into(petImg);
+        } else {
+            if (!profileImg.isEmpty()) {
+                petImg.setPadding(0,0,0,0);
+                Glide.with(this).load(profileImg).centerCrop().override(500).into(petImg);
+            }
         }
     }
 
@@ -356,7 +356,7 @@ public class AnimalProfileActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d("AnimalProfile Add", "DocumentSnapshot successfully written!");
-                        if(postImgPath == null || postImgPath.equals("")) {
+                        if (postImgPath == null || postImgPath.equals("")) {
                             setEditIcon(true);
                             setEditMode(false);
                             loaderLayout.setVisibility(View.INVISIBLE);
@@ -469,7 +469,7 @@ public class AnimalProfileActivity extends AppCompatActivity {
 
     private void deleteData() {
 
-       // Toast.makeText(getApplicationContext(), "딜리트를 눌렀습니다", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(getApplicationContext(), "딜리트를 눌렀습니다", Toast.LENGTH_SHORT).show();
         loaderLayout.setVisibility(View.VISIBLE);
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final String uid = user.getUid();
@@ -482,8 +482,7 @@ public class AnimalProfileActivity extends AppCompatActivity {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        if(postImgPath == null || postImgPath.equals(""))
-                        {
+                        if (postImgPath == null || postImgPath.equals("")) {
                             loaderLayout.setVisibility(View.INVISIBLE);
                             setEditIcon(false);
                             setEditMode(false);
@@ -502,11 +501,9 @@ public class AnimalProfileActivity extends AppCompatActivity {
                 });
 
 
-
-
         ///////////////////////////////////// 스토리지, 이미지 삭제
         // Create a storage reference from our app
-        if(postImgPath == null || postImgPath.equals(""))
+        if (postImgPath == null || postImgPath.equals(""))
             return;
 
         FirebaseStorage storage = FirebaseStorage.getInstance();
@@ -534,8 +531,6 @@ public class AnimalProfileActivity extends AppCompatActivity {
         });
 
 
-
-
     }
 
 
@@ -543,11 +538,11 @@ public class AnimalProfileActivity extends AppCompatActivity {
     private void saveDataToFirebase() {
         // 텍스트 변경시
         //if (!preMemo.equals(petMemo.getText().toString()) || !preName.equals(petName.getText().toString()))
-            setProfileTextToFirebase();
+        setProfileTextToFirebase();
 
         // 이미지 변경시
-       // if (postImgPath.compareTo(preImage) != 0)
-        if( !postImgPath.equals(""))
+        // if (postImgPath.compareTo(preImage) != 0)
+        if (!postImgPath.equals(""))
             setProfileImageToFirebase();
     }
 
@@ -563,7 +558,7 @@ public class AnimalProfileActivity extends AppCompatActivity {
         // 로컬 파일에서 업로드(스토리지)
         final Uri file = Uri.fromFile(new File(postImgPath));
         StorageReference riversRef = storageRef.child("pets/" + petId + "_profileImage.jpg");
-        Log.d("dsd", "setProfileImageToFirebase: "+("pets/" + petId + "_profileImage.jpg"));
+        Log.d("dsd", "setProfileImageToFirebase: " + ("pets/" + petId + "_profileImage.jpg"));
         uploadTask[0] = riversRef.putFile(file);
 
         uploadTask[0].addOnFailureListener(new OnFailureListener() {
@@ -651,7 +646,7 @@ public class AnimalProfileActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Log.d("AnimalProfileActivity", "DocumentSnapshot successfully updated!");
-                        if(postImgPath == null || postImgPath.equals(""))
+                        if (postImgPath == null || postImgPath.equals(""))
                             loaderLayout.setVisibility(View.INVISIBLE);
 
 

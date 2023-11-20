@@ -200,7 +200,7 @@ public class MyPageAdapter extends RecyclerView.Adapter<MyPageAdapter.MypageView
                                                         intent.putExtra("favoriteCount", arrayList.getFavoriteCount());
                                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                         context.startActivity(intent);
-                                                        Expand_contentsView.setlistener(calbacklistener);
+                                                        Expand_contentsView.setListener(calbacklistener);
                                                     } else {
                                                         Log.d("###", "Error getting documents: ", task.getException());
                                                     }

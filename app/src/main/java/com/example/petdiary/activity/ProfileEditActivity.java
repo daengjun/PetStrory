@@ -114,7 +114,6 @@ public class ProfileEditActivity extends AppCompatActivity {
                 case R.id.userPage_save:
 
 
-
                     if (userName.getText().toString().isEmpty()) {
                         Toast.makeText(ProfileEditActivity.this, "닉네임을 입력 해주세요", Toast.LENGTH_SHORT).show();
                         return;
@@ -225,7 +224,8 @@ public class ProfileEditActivity extends AppCompatActivity {
 
         Log.d("IR", "setProfileImg: " + profileImg);
 
-        if(profileImg!=null&&!profileImg.isEmpty()){
+        if (profileImg != null && !profileImg.isEmpty()) {
+            userImage.setPadding(0, 0, 0, 0);
             Glide.with(this).load(profileImg).centerCrop().override(500).into(userImage);
         }
     }

@@ -133,7 +133,6 @@ public class ViewPageAdapterSub extends PagerAdapter implements com.example.petd
                                                                 chkFriend = true;
                                                                 break;
                                                             }
-                                                            Log.d("dsd", "onComplete: " + mainSource.size());
                                                         }
                                                         if (chkFriend) {
                                                             intent.putExtra("friend", "checked");
@@ -157,7 +156,7 @@ public class ViewPageAdapterSub extends PagerAdapter implements com.example.petd
                                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                         context.startActivity(intent);
 
-                                                        Expand_contentsView.setlistener(calbacklistener);
+                                                        Expand_contentsView.setListener(calbacklistener);
                                                     } else {
                                                         Log.d("###", "Error getting documents: ", task.getException());
                                                     }

@@ -381,7 +381,8 @@ public class FragmentMy extends Fragment implements calbacklistener {
 
     private void setProfileImg(String profileImg) {
 
-        if(profileImg!=null&&!profileImg.isEmpty()){
+        if (profileImg != null && !profileImg.isEmpty()) {
+            profileEditImg.setPadding(0, 0, 0, 0);
             Glide.with(this).load(profileImg).centerCrop().override(500).into(profileEditImg);
         }
     }

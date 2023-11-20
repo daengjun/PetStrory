@@ -31,9 +31,6 @@ import com.tbuonomo.viewpagerdotsindicator.WormDotsIndicator;
  * 이미지 크게 보여 주는 화면
  **/
 
-// todo 화면 확대 축소는 되지만 원하는 영역으로 확대가 안됨
-// todo 추후에 추가 할 것
-
 public class Main_Expand_ImageView extends AppCompatActivity {
 
     private String imageUrl1;

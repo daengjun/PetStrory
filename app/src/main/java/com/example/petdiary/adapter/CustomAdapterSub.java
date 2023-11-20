@@ -1,5 +1,6 @@
 package com.example.petdiary.adapter;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -38,26 +39,24 @@ public class CustomAdapterSub extends RecyclerView.Adapter<CustomAdapterSub.Cust
 
     private ArrayList<Data> arrayList;
     private Context context;
-    calbacklistener callbacklistenter;
-    ViewPageAdapterSub viewPageAdapter;
-    ViewPager viewPager;
-    TextView textView;
-    CardView cardView;
+    private calbacklistener callBackListener;
+    private ViewPageAdapterSub viewPageAdapter;
+    private ViewPager viewPager;
+    private TextView textView;
+    private CardView cardView;
     private DatabaseReference mDatabase;
-    private FirebaseDatabase firebaseDatabase;
-    ArrayList<String> mainSource;
+    private ArrayList<String> mainSource;
 
 
 
-    public CustomAdapterSub(ArrayList<Data> arrayList, Context context, calbacklistener callbacklistenter) {
+    public CustomAdapterSub(ArrayList<Data> arrayList, Context context, calbacklistener callBackListener) {
         this.arrayList = arrayList;
         this.context = context;
-        this.callbacklistenter = callbacklistenter;
+        this.callBackListener = callBackListener;
     }
 
     @NonNull
     @Override
-    //실제 리스트뷰가 어댑터에 연결된 다음에 뷰 홀더를 최초로 만들어낸다.
     public CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_sub, parent, false);
         CustomViewHolder holder = new CustomViewHolder(view);
@@ -66,17 +65,15 @@ public class CustomAdapterSub extends RecyclerView.Adapter<CustomAdapterSub.Cust
 
     }
     @Override
-    public void onBindViewHolder(@NonNull CustomViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull CustomViewHolder holder, @SuppressLint("RecyclerView") final int position) {
         viewPager = (ViewPager) holder.itemView.findViewById(R.id.main_image);
         textView = (TextView) holder.itemView.findViewById(R.id.sub_textview);
         cardView = (CardView) holder.itemView.findViewById(R.id.sub_cardView);
-        
-
 
         if(!arrayList.get(position).getImageUrl1().equals("https://firebasestorage.googleapis.com/v0/b/petdiary-794c6.appspot.com/o/images%2Fempty.png?alt=media&token=c41b1cc0-d610-4964-b00c-2638d4bfd8bd")) {
             cardView.setVisibility(View.VISIBLE);
             textView.setVisibility(View.GONE);
-            viewPageAdapter = new ViewPageAdapterSub(arrayList.get(position), arrayList.get(position).getImageUrl1(), context, callbacklistenter);
+            viewPageAdapter = new ViewPageAdapterSub(arrayList.get(position), arrayList.get(position).getImageUrl1(), context, callBackListener);
             viewPager.setAdapter(viewPageAdapter);
         }
         else{
@@ -98,11 +95,10 @@ public class CustomAdapterSub extends RecyclerView.Adapter<CustomAdapterSub.Cust
 
         }
 
-
         DisplayMetrics displayMetrics = new DisplayMetrics();
         ((Activity) holder.itemView.getContext()).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int deviceWidth = displayMetrics.widthPixels;  // 핸드폰의 가로 해상도를 구함.
-        // int deviceHeight = displayMetrics.heightPixels;  // 핸드폰의 세로 해상도를 구함.
+        int deviceWidth = displayMetrics.widthPixels;  // 가로 해상도
+        // int deviceHeight = displayMetrics.heightPixels; // 세로 해상도
         deviceWidth = (deviceWidth-60) / 3;
         holder.itemView.getLayoutParams().width = deviceWidth;  // 아이템 뷰의 세로 길이를 구한 길이로 변경
         holder.itemView.getLayoutParams().height = deviceWidth;  // 아이템 뷰의 세로 길이를 구한 길이로 변경
@@ -135,7 +131,6 @@ public class CustomAdapterSub extends RecyclerView.Adapter<CustomAdapterSub.Cust
     private void goPost(final Data arrayLists) {
         final Intent intent = new Intent(context, Expand_contentsView.class);
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
-        firebaseDatabase = FirebaseDatabase.getInstance();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         final String uid = user.getUid();
         mainSource = new ArrayList<>();
@@ -143,7 +138,6 @@ public class CustomAdapterSub extends RecyclerView.Adapter<CustomAdapterSub.Cust
         mainSource.clear();
 
         mDatabase = FirebaseDatabase.getInstance().getReference("friend/"+uid);
-        Log.d("dsd", "goPost: arrayLists.getUid()"+arrayLists.getUid());
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -207,7 +201,7 @@ public class CustomAdapterSub extends RecyclerView.Adapter<CustomAdapterSub.Cust
                                                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                                                         context.startActivity(intent);
 
-                                                        Expand_contentsView.setlistener(callbacklistenter);
+                                                        Expand_contentsView.setListener(callBackListener);
                                                     } else {
                                                         Log.d("###", "Error getting documents: ", task.getException());
                                                     }
