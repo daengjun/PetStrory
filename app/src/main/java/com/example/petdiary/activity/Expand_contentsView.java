@@ -56,11 +56,10 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 
 /**
- * 게시글 보여 주는 액티비티
+ * 게시글 상세 페이지
  **/
 
 public class Expand_contentsView extends AppCompatActivity implements calbacklistener {
-
     private static com.example.petdiary.util.calbacklistener calBackListener;
     private String friendChecked;
     private String bookmarkChecked;
@@ -77,22 +76,16 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
     private String nickName;
     private String Category;
     private int favoriteCount;
-    private Activity activity;
-
-
-    ViewPageAdapterDetail viewPageAdapter;
-    ViewPager viewPager;
-    WormDotsIndicator wormDotsIndicator;
-
-    TextView post_nickName;
-    TextView post_content;
-    TextView LikeText;
-
+    //    private Activity activity;
+    private ViewPageAdapterDetail viewPageAdapter;
+    private ViewPager viewPager;
+    private WormDotsIndicator wormDotsIndicator;
+    private TextView post_nickName;
+    private TextView post_content;
+    private TextView LikeText;
     private Button Comment_btn;
-    //내 uid 가져 오기
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-    String my_uid_server = user.getUid();
-
+    private FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private String my_uid_server = user.getUid();
     private CheckBox bookmark_button;
     private CheckBox Like_button;
     private FirebaseDatabase firebaseDatabase;
@@ -102,8 +95,10 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expand_image_view);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        activity = this;
 
+        long startTime = System.currentTimeMillis();
+
+//        activity = this;
         Intent intent = getIntent();
         friendChecked = intent.getStringExtra("friend");
         Log.e("TAG", "friendCheck" + friendChecked);
@@ -169,9 +164,6 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
         viewPager = (ViewPager) findViewById(R.id.main_image);
         post_content = findViewById(R.id.main_textView);
 
-        overridePendingTransition(R.anim.fade_in, R.anim.none);
-
-
         if (!imageUrl1.equals("https://firebasestorage.googleapis.com/v0/b/petdiary-794c6.appspot.com/o/images%2Fempty.png?alt=media&token=c41b1cc0-d610-4964-b00c-2638d4bfd8bd")) {
             Log.e("###111", viewPager.getCurrentItem() + " ");
             viewPageAdapter = new ViewPageAdapterDetail(true, imageUrl1, imageUrl2, imageUrl3, imageUrl4, imageUrl5, getApplicationContext());
@@ -180,7 +172,6 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
             viewPager.setVisibility(View.VISIBLE);
             wormDotsIndicator.setViewPager(viewPager);
             wormDotsIndicator.setVisibility(View.VISIBLE);
-
         } else {
             viewPager.setVisibility(View.GONE);
             RelativeLayout.LayoutParams param2 = new RelativeLayout.LayoutParams
@@ -207,6 +198,8 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
         LikeText = findViewById(R.id.Like_button_text_Count);
 
         LikeText.setText(String.valueOf(favoriteCount));
+
+        overridePendingTransition(R.anim.fade_in, R.anim.none);
 
 
         post_nickName.setOnClickListener(new View.OnClickListener() {
@@ -237,15 +230,14 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
 
         findViewById(R.id.onPopupButton).setOnClickListener(new View.OnClickListener() {
             //내 uid
-            String myuid = my_uid_server;
+            String my_uid = my_uid_server;
             //게시글 uid
             String content_uid = uid;
 
             @Override
-
             public void onClick(final View view) {
                 Log.e("TAG", "Post ID :" + postID);
-                if (myuid.equals(content_uid)) {
+                if (my_uid.equals(content_uid)) {
                     CharSequence info[] = new CharSequence[]{"Edit", "Delete", "Share"};
 
                     final AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
@@ -275,7 +267,7 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
                                     break;
                                 case 1:
                                     // 게시글 삭제
-                                    EXpandPostDelete(view);
+                                    ExpandPostDelete(view);
                                     break;
                                 case 2:
                                     FirebaseDynamicLinks.getInstance().createDynamicLink()
@@ -304,7 +296,7 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
                                                             .build())
 
                                             .buildShortDynamicLink()
-                                            .addOnCompleteListener(activity, new OnCompleteListener<ShortDynamicLink>() {
+                                            .addOnCompleteListener(Expand_contentsView.this, new OnCompleteListener<ShortDynamicLink>() {
                                                 @Override
                                                 public void onComplete(@NonNull Task<ShortDynamicLink> task) {
                                                     if (task.isSuccessful()) {
@@ -371,7 +363,6 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
                                                         DatabaseReference friend = firebaseDatabase.getReference("friend").child(user.getUid() + "/" + uid);
                                                         FriendInfo friendInfo = new FriendInfo();
                                                         friend.setValue(friendInfo);
-                                                        Log.d("ㅇㄴㅇㄴ", "onSuccess: 사용자 차단");
                                                         calBackListener.refresh(true);
                                                     }
                                                 })
@@ -409,7 +400,7 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
                                                                 .build())
 
                                                 .buildShortDynamicLink()
-                                                .addOnCompleteListener(activity, new OnCompleteListener<ShortDynamicLink>() {
+                                                .addOnCompleteListener(Expand_contentsView.this, new OnCompleteListener<ShortDynamicLink>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<ShortDynamicLink> task) {
                                                         if (task.isSuccessful()) {
@@ -453,18 +444,11 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
                                         calBackListener.refresh(true);
                                         break;
                                     case 1:
-
                                         Log.d("Email", "dangjun my_Email : " + user.getEmail());
-
                                         Intent intent = new Intent(getApplicationContext(), SettingCustomerActivity.class);
-
                                         intent.putExtra("email", user.getEmail());
                                         intent.putExtra("declaration", "신고");
-
                                         getApplicationContext().startActivity(intent.addFlags(FLAG_ACTIVITY_NEW_TASK));
-
-//                                        Toast.makeText(view.getContext(), "신고하기", Toast.LENGTH_SHORT).show();
-
                                         break;
                                     case 2:
                                         BlockFriendInfo blockFriendInfo = new BlockFriendInfo();
@@ -495,6 +479,7 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
                                                 .setDomainUriPrefix("https://MyPetStory.page.link")
                                                 .setAndroidParameters(
                                                         new DynamicLink.AndroidParameters.Builder("com.example.petdiary")
+                                                                // todo 주소 static 변수로 선언해서 적용할 것
                                                                 .setFallbackUrl(Uri.parse("https://daengjundl.tistory.com/12"))
                                                                 .build())
                                                 .setGoogleAnalyticsParameters(
@@ -516,7 +501,7 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
                                                                 .build())
 
                                                 .buildShortDynamicLink()
-                                                .addOnCompleteListener(activity, new OnCompleteListener<ShortDynamicLink>() {
+                                                .addOnCompleteListener(Expand_contentsView.this, new OnCompleteListener<ShortDynamicLink>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<ShortDynamicLink> task) {
                                                         if (task.isSuccessful()) {
@@ -620,7 +605,6 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
                                     favoriteCount = favoritePlus;
                                     LikeText.setText(String.valueOf(favoriteCount));
 
-// Set the "isCapital" field of the city 'DC'
                                     washingtonRef
                                             .update("favoriteCount", favoriteCount)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -661,7 +645,6 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
                                     favoriteCount = favoriteMinus;
                                     LikeText.setText(String.valueOf(favoriteCount));
 
-// Set the "isCapital" field of the city 'DC'
                                     washingtonRef
                                             .update("favoriteCount", favoriteCount)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -689,6 +672,14 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
             }
         });
 
+
+        long endTime = System.currentTimeMillis();
+        long elapsedTime = endTime - startTime;
+
+        double seconds = (double) elapsedTime / 1000.0;
+
+        Log.d("MyApp", "수신 받는쪽 코드 실행에 걸린 시간: " + seconds + "초");
+
     }
 
     @Override
@@ -704,20 +695,14 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 0:
-                Log.d("dsd", "onActivityResult: resultCode" + resultCode);
+                Log.e("TAG", "onActivityResult: resultCode" + resultCode);
                 if (resultCode == RESULT_OK) {
                     content = data.getStringExtra("content");
                     imageUrl1 = data.getStringExtra("imageUrl1");
                     imageUrl2 = data.getStringExtra("imageUrl2");
-                    Log.d("ㅍ", "onActivityResult: 값은?" + imageUrl2);
                     imageUrl3 = data.getStringExtra("imageUrl3");
-                    Log.d("ㅍ", "onActivityResult: 값은?" + imageUrl3);
                     imageUrl4 = data.getStringExtra("imageUrl4");
-                    Log.d("ㅍ", "onActivityResult: 값은?" + imageUrl4);
                     imageUrl5 = data.getStringExtra("imageUrl5");
-                    Log.d("ㅍ", "onActivityResult: 값은?" + imageUrl5);
-
-
                     post_content = findViewById(R.id.main_textView);
                     post_content.setText(content);
 
@@ -731,7 +716,7 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
                     wormDotsIndicator.setViewPager(viewPager);
 
                 } else {
-                    Log.d("ㄴㅇㄴ", "onActivityResult: 여기?");
+                    Log.e("TAG", "onActivityResult fail");
                 }
                 break;
         }
@@ -743,7 +728,7 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
 
 
-        builder.setTitle("정말 삭제하시겠습니까?")
+        builder.setTitle("정말 삭제 하시겠습니까?")
                 .setCancelable(false)
                 .setPositiveButton("확인", new DialogInterface.OnClickListener() {
 
@@ -772,10 +757,10 @@ public class Expand_contentsView extends AppCompatActivity implements calbacklis
 
 
     // 게시글 삭제
-    public void EXpandPostDelete(final View view) {
+    public void ExpandPostDelete(final View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
 
-        builder.setTitle("정말 삭제하시겠습니까?")
+        builder.setTitle("정말 삭제 하시겠습니까?")
                 .setCancelable(false)
                 .setPositiveButton("확인", new DialogInterface.OnClickListener() {
 

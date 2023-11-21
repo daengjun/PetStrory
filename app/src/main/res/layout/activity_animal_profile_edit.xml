@@ -38,8 +38,8 @@
                 android:id="@+id/animalPage_Image"
                 android:layout_width="match_parent"
                 android:layout_height="146dp"
-                android:padding="10dp"
                 android:layout_centerHorizontal="true"
+                android:padding="10dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/baseline_pets_24"
 
@@ -47,14 +47,13 @@
         </androidx.cardview.widget.CardView>
 
         <EditText
-            android:layout_marginEnd="40dp"
-            android:layout_marginStart="40dp"
             android:id="@+id/animalPage_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginStart="40dp"
             android:layout_marginTop="40dp"
-            android:padding="20dp"
+            android:layout_marginEnd="40dp"
             android:background="@drawable/text_shape_coners"
             android:ellipsize="end"
             android:focusable="false"
@@ -62,27 +61,29 @@
             android:hint="동물 이름을 입력해주세요"
             android:inputType="text"
             android:maxLines="1"
+            android:padding="20dp"
             android:scrollHorizontally="true" />
 
         <EditText
-            android:layout_marginEnd="20dp"
-            android:layout_marginStart="20dp"
             android:id="@+id/animalPage_memo"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="30dp"
-            android:padding="20dp"
-            android:background="@drawable/text_shape_coners"            android:focusable="false"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/text_shape_coners"
+            android:focusable="false"
             android:gravity="top|start"
             android:hint="동물에 대한 정보를 입력해주세요"
-            android:maxLines="6" />
+            android:maxLines="6"
+            android:padding="20dp" />
 
         <LinearLayout
-            android:paddingBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="20dp"
-            android:gravity="bottom|right">
+            android:gravity="bottom|right"
+            android:paddingBottom="10dp">
 
             <Button
                 android:id="@+id/animalPage_save"
@@ -109,5 +110,5 @@
         layout="@layout/view_loader"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 </RelativeLayout>

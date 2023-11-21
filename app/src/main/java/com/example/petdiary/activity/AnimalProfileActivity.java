@@ -59,8 +59,8 @@ public class AnimalProfileActivity extends AppCompatActivity {
 
     String postImgPath; // 보낼 이미지
     String preImage;    // 편집 전 이미지
-    String preName;     // 편집 전 이름
-    String preMemo;     // 편집 전 메모
+    String preNameText;     // 편집 전 이름
+    String preMemoText;     // 편집 전 메모
 
 
     boolean isAddMode = false; // 펫 추가 버튼을 눌렀을시에만 true
@@ -87,8 +87,8 @@ public class AnimalProfileActivity extends AppCompatActivity {
         userId = intent.getStringExtra("userId");
 
         preImage = intent.getStringExtra("petImage");
-        preName = intent.getStringExtra("name");
-        preMemo = intent.getStringExtra("memo");
+        preNameText = intent.getStringExtra("name");
+        preMemoText = intent.getStringExtra("memo");
 
         moreBtn = findViewById(R.id.animalPage_more);
         petImg = findViewById(R.id.animalPage_Image);
@@ -99,8 +99,8 @@ public class AnimalProfileActivity extends AppCompatActivity {
 
 
         setProfileImg(preImage);
-        petName.setText(preName);
-        petMemo.setText(preMemo);
+        petName.setText(preNameText);
+        petMemo.setText(preMemoText);
         postImgPath = "";
 
 
@@ -109,17 +109,15 @@ public class AnimalProfileActivity extends AppCompatActivity {
         saveBtn.setOnClickListener(onClickListener);
         cancelBtn.setOnClickListener(onClickListener);
 
-
-        if (isAddMode == false && isEditMode == false) {
+        if (!isAddMode && !isEditMode) {
             // 보기 모드
             setEditIcon(true);
             setEditMode(false);
-
-        } else if (isAddMode == false && isEditMode == true) {
+        } else if (!isAddMode) {
             // 수정 모드
             setEditIcon(false);
             setEditMode(true);
-        } else if (isAddMode == true) {
+        } else {
             // 추가 모드
             setEditIcon(false);
             setEditMode(true);
@@ -194,8 +192,8 @@ public class AnimalProfileActivity extends AppCompatActivity {
                             setEditIcon(true);
                             setEditMode(false);
 
-                            preName = petName.getText().toString();
-                            preMemo = petMemo.getText().toString();
+                            preNameText = petName.getText().toString();
+                            preMemoText = petMemo.getText().toString();
                             preImage = postImgPath;
                         }
 
@@ -209,8 +207,8 @@ public class AnimalProfileActivity extends AppCompatActivity {
                     isEditMode = false;
                     postImgPath = preImage;
                     setProfileImg(preImage);
-                    petName.setText(preName);
-                    petMemo.setText(preMemo);
+                    petName.setText(preNameText);
+                    petMemo.setText(preMemoText);
                     setEditIcon(true);
                     setEditMode(false);
                     if (isAddMode) {
@@ -292,6 +290,11 @@ public class AnimalProfileActivity extends AppCompatActivity {
             petMemo.setFocusableInTouchMode(true);
             petMemo.setGravity(Gravity.TOP | Gravity.START);
 
+            if(preMemoText.isEmpty()){
+                petMemo.setHint("");
+                petMemo.setFocusableInTouchMode(true);
+            }
+
             saveBtn.setVisibility(View.VISIBLE);
             cancelBtn.setVisibility(View.VISIBLE);
         } else {
@@ -299,11 +302,13 @@ public class AnimalProfileActivity extends AppCompatActivity {
             petName.setBackground(null);
             petName.setGravity(Gravity.CENTER);
             petName.setFocusableInTouchMode(false);
+            petName.setHint("");
             petName.setFocusable(false);
 
             petMemo.setBackground(null);
             petMemo.setGravity(Gravity.CENTER_HORIZONTAL);
             petMemo.setFocusableInTouchMode(false);
+            petMemo.setHint("");
             petMemo.setFocusable(false);
 
             saveBtn.setVisibility(View.INVISIBLE);

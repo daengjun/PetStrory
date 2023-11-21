@@ -2,12 +2,11 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ff"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/app_bar_main"
-    android:id="@+id/ff"
-    >
+    tools:showIn="@layout/app_bar_main">
 
     <FrameLayout
         android:id="@+id/fl"
@@ -32,14 +31,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <Button
+                android:id="@+id/CB"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:background="@drawable/button_off"
                 android:text="채팅"
-                android:id="@+id/CB"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/FB"
-                android:background="@drawable/button_off"/>
+                app:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

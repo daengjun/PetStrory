@@ -1,5 +1,6 @@
 package com.example.petdiary.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -122,14 +123,16 @@ public class ChatListFragment extends Fragment  {
 
                 fb.setBackgroundResource(R.drawable.button_on);
                 cb.setBackgroundResource(R.drawable.button_off);
+                fb.setTextColor(Color.parseColor("#000000"));
+                cb.setTextColor(Color.parseColor("#2A000000"));
                 NavHostFragment.findNavController(ChatListFragment.this).navigate(R.id.chat_to_friends);
-
 
             }
         });
         cb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                cb.setTextColor(Color.parseColor("#000000"));
 
             }
         });

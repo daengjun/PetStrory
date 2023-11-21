@@ -71,19 +71,34 @@ public class ViewPageAdapterSub extends PagerAdapter implements com.example.petd
         ImageView imageView = (ImageView) v.findViewById(R.id.imageView);
         Glide.with(context).load(images.get(position)).centerCrop().override(500).into(imageView);
 
-        imageView.setOnClickListener(new OnSingleClickListener() {
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            private static final long CLICK_TIME_INTERVAL = 1000; // 클릭 간격을 조절하세요 (밀리초 단위)
+            private long lastClickTime = 0;
+
             @Override
-            public void onSingleClick(View view) {
-                goPost(arrayList);
+            public void onClick(View v) {
+                long currentTime = System.currentTimeMillis();
+
+                // 현재 시간과 마지막 클릭 시간 간의 차이를 계산
+                if (currentTime - lastClickTime >= CLICK_TIME_INTERVAL) {
+                    // 일정 시간이 지난 후에 클릭 처리
+                    goPost(arrayList);
+
+                    // 마지막 클릭 시간 갱신
+                    lastClickTime = currentTime;
+                }
             }
         });
-
 
         container.addView(v);
         return v;
     }
 
     private void goPost(final Data arrayList) {
+
+        final long startTime = System.currentTimeMillis();
+
         final Intent intent = new Intent(context, Expand_contentsView.class);
         final FirebaseFirestore db = FirebaseFirestore.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -92,14 +107,14 @@ public class ViewPageAdapterSub extends PagerAdapter implements com.example.petd
 
         mainSource.clear();
 
-        mDatabase = FirebaseDatabase.getInstance().getReference("friend/"+uid);
+        mDatabase = FirebaseDatabase.getInstance().getReference("friend/" + uid);
         mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot postSnapshot: snapshot.getChildren()) {
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     mainSource.add(postSnapshot.getKey());
                 }
-                db.collection("user-checked/"+uid+"/bookmark")
+                db.collection("user-checked/" + uid + "/bookmark")
                         .whereEqualTo("postID", arrayList.getPostID())
                         .get()
                         .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -108,12 +123,12 @@ public class ViewPageAdapterSub extends PagerAdapter implements com.example.petd
                                 if (task.isSuccessful()) {
                                     intent.putExtra("bookmark", "unchecked");
                                     for (final QueryDocumentSnapshot document : task.getResult()) {
-                                        if(arrayList.getPostID().equals(document.getData().get("postID").toString())){
+                                        if (arrayList.getPostID().equals(document.getData().get("postID").toString())) {
                                             intent.putExtra("bookmark", "checked");
                                             break;
                                         }
                                     }
-                                    db.collection("user-checked/"+uid+"/like")
+                                    db.collection("user-checked/" + uid + "/like")
                                             .whereEqualTo("postID", arrayList.getPostID())
                                             .get()
                                             .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -122,13 +137,13 @@ public class ViewPageAdapterSub extends PagerAdapter implements com.example.petd
                                                     if (task.isSuccessful()) {
                                                         intent.putExtra("postLike", "unchecked");
                                                         for (final QueryDocumentSnapshot document : task.getResult()) {
-                                                            if(arrayList.getPostID().equals(document.getData().get("postID").toString())){
+                                                            if (arrayList.getPostID().equals(document.getData().get("postID").toString())) {
                                                                 intent.putExtra("postLike", "checked");
                                                                 break;
                                                             }
                                                         }
                                                         boolean chkFriend = false;
-                                                        for (int i=0; i<mainSource.size(); i++) {
+                                                        for (int i = 0; i < mainSource.size(); i++) {
                                                             if (arrayList.getUid().equals(mainSource.get(i))) {
                                                                 chkFriend = true;
                                                                 break;
@@ -157,6 +172,14 @@ public class ViewPageAdapterSub extends PagerAdapter implements com.example.petd
                                                         context.startActivity(intent);
 
                                                         Expand_contentsView.setListener(calbacklistener);
+
+                                                        long endTime = System.currentTimeMillis();
+                                                        long elapsedTime = endTime - startTime;
+
+                                                        double seconds = (double) elapsedTime / 1000.0;
+
+                                                        Log.d("MyApp", "코드 실행에 걸린 시간: " + seconds + "초");
+
                                                     } else {
                                                         Log.d("###", "Error getting documents: ", task.getException());
                                                     }
@@ -168,6 +191,7 @@ public class ViewPageAdapterSub extends PagerAdapter implements com.example.petd
                             }
                         });
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 

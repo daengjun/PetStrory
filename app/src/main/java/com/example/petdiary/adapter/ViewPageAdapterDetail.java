@@ -28,7 +28,7 @@ public class ViewPageAdapterDetail extends PagerAdapter {
     private String url3;
     private String url4;
     private String url5;
-    ArrayList<String> image = new ArrayList<>();
+    private ArrayList<String> image = new ArrayList<>();
     boolean check;
 
     public ViewPageAdapterDetail(boolean check, String url1, String url2, String url3, String url4, String url5, Context context) {
@@ -82,9 +82,10 @@ public class ViewPageAdapterDetail extends PagerAdapter {
         ImageView imageView = (ImageView) v.findViewById(R.id.imageView);
         if (check) {
             Glide.with(context).load(images.get(position)).centerCrop().override(1000).into(imageView);
-            v.setOnClickListener(new OnSingleClickListener() {
-                public void onSingleClick(View v) {
-                    Log.e("###", position + "");
+            v.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
                     goPost(position, image.get(position));
                 }
             });

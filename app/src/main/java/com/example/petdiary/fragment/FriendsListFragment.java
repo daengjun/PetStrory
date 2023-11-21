@@ -1,5 +1,6 @@
 package com.example.petdiary.fragment;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -115,7 +116,8 @@ public class FriendsListFragment extends Fragment implements calbacklistener {
         cb.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                cb.setTextColor(Color.parseColor("#000000"));
+                fb.setTextColor(Color.parseColor("#2A000000"));
                 cb.setBackgroundResource(R.drawable.button_on);
                 fb.setBackgroundResource(R.drawable.button_off);
                 NavHostFragment.findNavController(FriendsListFragment.this).navigate(R.id.friends_to_chat);
