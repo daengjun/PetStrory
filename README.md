@@ -6,6 +6,6 @@
 
 
   <p dir="auto">  
-<a target="_blank" rel="noopener noreferrer nofollow" href="https://user-images.githubusercontent.com/30336663/140635943-b4361df2-cf61-4d94-aef4-957e3f655a36.jpg"><img width="40%" src="https://user-images.githubusercontent.com/30336663/140635943-b4361df2-cf61-4d94-aef4-957e3f655a36.jpg" style="max-width: 100%;"></a>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://github.com/daengjun/PetStrory/assets/98893006/b1bde6d8-08e1-437f-bbbc-dd70b08a61ca"><img width="40%" src="https://user-images.githubusercontent.com/30336663/140635943-b4361df2-cf61-4d94-aef4-957e3f655a36.jpg" style="max-width: 100%;"></a>
 <a target="_blank" rel="noopener noreferrer nofollow" href="https://user-images.githubusercontent.com/30336663/140635950-fecd1d26-ea59-473d-8c1e-371f5cd96c13.jpg"><img width="40%" src="https://user-images.githubusercontent.com/30336663/140635950-fecd1d26-ea59-473d-8c1e-371f5cd96c13.jpg" style="max-width: 100%;"></a>
 </p>
