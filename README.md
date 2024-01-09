@@ -1,5 +1,7 @@
 # 🐶 Pet Story
 **펫의 일상을 공유하는 소셜 SNS 서비스**  
+  
+**📝 Result**
 
 <p dir="auto">  
 <a target="_blank" rel="noopener noreferrer nofollow" href="https://github.com/daengjun/PetStrory/assets/98893006/bb910da7-4d1f-4748-b647-1aff2561a7e7"><img width="40%" src="https://github.com/daengjun/PetStrory/assets/98893006/bb910da7-4d1f-4748-b647-1aff2561a7e7" style="max-width: 100%;"></a>
