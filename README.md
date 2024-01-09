@@ -1,4 +1,4 @@
-# Pet Story
+# 🐶 Pet Story
 **펫의 일상을 공유하는 소셜 SNS 서비스**  
 
 <p dir="auto">  
