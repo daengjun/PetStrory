@@ -16,8 +16,7 @@ src="https://github.com/daengjun/PetStrory/assets/98893006/0d71eba1-9188-49b5-a1
 </p>  
 
 <p dir="auto">  
-<a target="_blank" rel="noopener noreferrer nofollow" href="https://github.com/daengjun/PetStrory/assets/98893006/ec955a2c-0caa-4f28-8485-6f8365fd6790"><img width="40%" src="https://github.com/daengjun/PetStrory/assets/98893006/ec955a2c-0caa-4f28-8485-6f8365fd6790" style="max-width: 100%;"></a>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://github.com/daengjun/PetStrory/assets/98893006/93cfc6c4-6fec-46f9-b23d-62d246a59ff2"><img width="40%" src="https://github.com/daengjun/PetStrory/assets/98893006/93cfc6c4-6fec-46f9-b23d-62d246a59ff2" style="max-width: 100%;"></a>
   <a target="_blank" rel="noopener noreferrer nofollow" href="https://github.com/daengjun/PetStrory/assets/98893006/8a989677-facd-4ac2-a594-a2a3613b66e4"><img width="40%" src="https://github.com/daengjun/PetStrory/assets/98893006/8a989677-facd-4ac2-a594-a2a3613b66e4" style="max-width: 100%;"></a>
 </p>
 
-![채팅방](https://github.com/daengjun/PetStrory/assets/98893006/93cfc6c4-6fec-46f9-b23d-62d246a59ff2)
