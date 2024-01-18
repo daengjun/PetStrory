@@ -1,4 +1,4 @@
-# 🐶 Pet Story
+# 🐈 Pet Story
 **반려동물의 일상을 공유하고 소통할 수 있는 소셜 SNS 서비스입니다.**  
 
 # ⭐️ Key Function
