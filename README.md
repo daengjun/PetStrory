@@ -2,7 +2,7 @@
 **반려동물의 일상을 공유하고 소통할 수 있는 소셜 SNS 서비스입니다.**    
 
 ![puppy-4583450_1280](https://github.com/daengjun/PetStrory/assets/98893006/d9cb7952-d6d5-469d-b5ed-bd7fb2e3766e)
-(사진 저작권 pixabay)
+(사진 출처 : pixabay)
 
 # ⭐️ Key Function
 **1. 메인 타임 라인**  
