@@ -4,7 +4,7 @@
 
 ![puppy-1726419_640](https://github.com/daengjun/PetStrory/assets/98893006/a89a97ca-e3f0-407a-8045-3e81309041a7)
                                                                                       
-# ⭐️ Key Function!
+# ⭐️ Key Function
 
 **1. 메인 타임 라인**  
 - 내가 쓴 글과 친구가 쓴 글의 전체 목록이 표시
