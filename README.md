@@ -1,8 +1,8 @@
 # 🐾 Pet Story
 **반려동물의 일상을 공유하고 소통할 수 있는 소셜 SNS 서비스입니다.** (이미지 출처: Pixabay)
 
-[puppy-1726419_640](https://github.com/daengjun/PetStrory/assets/98893006/227bf92b-087f-4101-bb47-518c96e6623f)
-                                                                                            
+![puppy-1726419_640](https://github.com/daengjun/PetStrory/assets/98893006/a89a97ca-e3f0-407a-8045-3e81309041a7)
+                                                                                      
 # ⭐️ Key Function!
 
 **1. 메인 타임 라인**  
