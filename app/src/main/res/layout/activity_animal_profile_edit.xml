@@ -57,7 +57,7 @@
             android:background="@drawable/text_shape_coners"
             android:ellipsize="end"
             android:focusable="false"
-            android:gravity="start"
+            android:gravity="center"
             android:hint="동물 이름을 입력해주세요"
             android:inputType="text"
             android:maxLines="1"

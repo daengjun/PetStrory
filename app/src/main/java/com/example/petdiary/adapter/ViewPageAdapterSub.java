@@ -71,7 +71,6 @@ public class ViewPageAdapterSub extends PagerAdapter implements com.example.petd
         ImageView imageView = (ImageView) v.findViewById(R.id.imageView);
         Glide.with(context).load(images.get(position)).centerCrop().override(500).into(imageView);
 
-
         imageView.setOnClickListener(new View.OnClickListener() {
             private static final long CLICK_TIME_INTERVAL = 1000; // 클릭 간격을 조절하세요 (밀리초 단위)
             private long lastClickTime = 0;

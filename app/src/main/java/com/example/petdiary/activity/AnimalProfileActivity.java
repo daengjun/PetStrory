@@ -290,7 +290,7 @@ public class AnimalProfileActivity extends AppCompatActivity {
             petMemo.setFocusableInTouchMode(true);
             petMemo.setGravity(Gravity.TOP | Gravity.START);
 
-            if(preMemoText.isEmpty()){
+            if(preMemoText != null && preMemoText.isEmpty()){
                 petMemo.setHint("");
                 petMemo.setFocusableInTouchMode(true);
             }

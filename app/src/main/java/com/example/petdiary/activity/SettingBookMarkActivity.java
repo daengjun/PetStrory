@@ -48,7 +48,7 @@ public class SettingBookMarkActivity extends AppCompatActivity implements calbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_bookmark);
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true); // 리사이클러뷰 기존성능 강화

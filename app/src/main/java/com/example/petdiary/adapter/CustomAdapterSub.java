@@ -80,7 +80,6 @@ public class CustomAdapterSub extends RecyclerView.Adapter<CustomAdapterSub.Cust
             cardView.setVisibility(View.GONE);
             textView.setVisibility(View.VISIBLE);
             textView.setText(arrayList.get(position).getContent());
-
         }
 
         if(textView.getVisibility()==View.VISIBLE){

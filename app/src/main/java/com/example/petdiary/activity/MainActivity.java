@@ -3,12 +3,12 @@ package com.example.petdiary.activity;
 import static com.example.petdiary.util.util.nickName;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -16,17 +16,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.airbnb.lottie.LottieAnimationView;
 import com.bumptech.glide.Glide;
 import com.example.petdiary.R;
 import com.example.petdiary.fragment.*;
@@ -42,18 +39,8 @@ import com.google.firebase.dynamiclinks.PendingDynamicLinkData;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingService;
-import com.google.firebase.messaging.RemoteMessage;
-import com.squareup.okhttp.MediaType;
-import com.squareup.okhttp.OkHttpClient;
-import com.squareup.okhttp.Request;
-import com.squareup.okhttp.RequestBody;
-import com.squareup.okhttp.Response;
-
-import org.json.JSONObject;
 
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -81,21 +68,22 @@ public class MainActivity extends AppCompatActivity {
 
     private String password = "";
 
-    TextView toolbarNickName;
-    ImageView user_icon;
-    BottomNavigationView bottomNavigationView;
-    FragmentMain fragmentMain;
-    FragmentSub fragmentSub;
-    FragmentNewPost fragmentNewPost;
-    FragmentMy fragmentMy;
-    FragmentContentMain fragmentContentMain;
-    String fullString;
+    private TextView toolbarNickName;
+    private ImageView user_icon;
+    private BottomNavigationView bottomNavigationView;
+    private FragmentMain fragmentMain;
+    private FragmentSub fragmentSub;
+    private FragmentNewPost fragmentNewPost;
+    private FragmentMy fragmentMy;
+    private FragmentContentMain fragmentContentMain;
+    private String fullString;
     private FragmentManager fragmentManager;
-    Menu menu;
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    private Menu menu;
+    private final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     private DrawerLayout drawerLayout;
     private View drawerView;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,29 +94,9 @@ public class MainActivity extends AppCompatActivity {
         LinearLayout customActionBar = new LinearLayout(this);
         customActionBar.setOrientation(LinearLayout.HORIZONTAL);
 
-        ImageView imageView = new ImageView(this);
-        imageView.setScaleY(0.9f);
-        imageView.setScaleX(0.9f);
-        imageView.setImageResource(R.drawable.ic_pet_white);
-        TextView titleTextView = new TextView(this);
-        titleTextView.setTextSize(17);
-        titleTextView.setText("Pet Story");
-        titleTextView.setTextColor(Color.parseColor("#ffffff"));
-
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-        );
-        layoutParams.setMarginStart(30); // start 마진 설정
-
-        customActionBar.addView(imageView);
-        customActionBar.addView(titleTextView,layoutParams);
-
-        getSupportActionBar().setDisplayShowCustomEnabled(true);
-        getSupportActionBar().setCustomView(customActionBar);
+        AppbarSetting(customActionBar);
 
         setContentView(R.layout.activity_main);
-
 
         //getAppKeyHash();
 
@@ -138,17 +106,7 @@ public class MainActivity extends AppCompatActivity {
         Intent fcm = new Intent(getApplicationContext(), FirebaseMessagingService.class);
         startService(fcm);
 
-
         getSupportActionBar().hide();
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-////                findViewById(R.id.start_progressBar).setVisibility(View.GONE);
-//
-//
-//            }
-//        }, 3500);
-
 
         getSupportActionBar().show();
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -163,7 +121,6 @@ public class MainActivity extends AppCompatActivity {
             Log.d("FCM_PetDiary", FirebaseMessaging.getInstance().toString());
         }
 
-
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerView = (View) findViewById(R.id.drawerView);
         drawerLayout.setDrawerListener(listener);
@@ -173,12 +130,53 @@ public class MainActivity extends AppCompatActivity {
         Uri data = intent.getData();
 
         if (data != null)
-            Log.d(TAG, data.toString());
-
-
-
+            Log.d(TAG, "data:" + data.toString());
 
         /*딥링크로 받아오는 부분 */
+        deepLink();
+
+        if (user == null) {
+            /* 로그인 페이지로 이동 */
+            myStartActivity(LoginActivity.class);
+            finish();
+        } else {
+            /* 자동로그인 확인 */
+            checkPassword();
+        }
+
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        if (user == null) {
+                            return;
+                        }
+                        // Get new FCM registration token
+                        String token = task.getResult();
+
+                        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("fcmToken", token);
+                        db.collection("users").document(user.getUid()).update(map);
+//                        finish();
+
+                        Log.d(TAG, "onComplete: " + token);
+//                        // Log and toast
+//                        String msg = getString(R.string.msg_token_fmt, token);
+//                        Log.d(TAG, msg);
+//                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void deepLink() {
         FirebaseDynamicLinks.getInstance()
                 .getDynamicLink(getIntent())
                 .addOnSuccessListener(this, new OnSuccessListener<PendingDynamicLinkData>() {
@@ -221,46 +219,29 @@ public class MainActivity extends AppCompatActivity {
                         Log.w(TAG, "getDynamicLink:onFailure", e);
                     }
                 });
+    }
 
-        if (user == null) {
-            /* 로그인 페이지로 이동 */
-            myStartActivity(LoginActivity.class);
-            finish();
-        } else {
-            /* 자동로그인 확인 */
-            checkPassword();
-        }
+    private void AppbarSetting(LinearLayout customActionBar) {
+        ImageView imageView = new ImageView(getApplicationContext());
+        imageView.setScaleY(0.9f);
+        imageView.setScaleX(0.9f);
+        imageView.setImageResource(R.drawable.ic_pet_white);
+        TextView titleTextView = new TextView(getApplicationContext());
+        titleTextView.setTextSize(17);
+        titleTextView.setText("Pet Story");
+        titleTextView.setTextColor(Color.parseColor("#ffffff"));
 
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT
+        );
+        layoutParams.setMarginStart(30); // start 마진 설정
 
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
-                            return;
-                        }
+        customActionBar.addView(imageView);
+        customActionBar.addView(titleTextView, layoutParams);
 
-                        if(user ==null){
-                            return;
-                        }
-                        // Get new FCM registration token
-                        String token = task.getResult();
-
-                        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-                        Map<String, Object> map = new HashMap<>();
-                        map.put("fcmToken", token);
-                        db.collection("users").document(user.getUid()).update(map);
-//                        finish();
-
-                        Log.d(TAG, "onComplete: " + token);
-//                        // Log and toast
-//                        String msg = getString(R.string.msg_token_fmt, token);
-//                        Log.d(TAG, msg);
-//                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
-                    }
-                });
+        getSupportActionBar().setDisplayShowCustomEnabled(true);
+        getSupportActionBar().setCustomView(customActionBar);
     }
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -360,8 +341,6 @@ public class MainActivity extends AppCompatActivity {
         menu.findItem(R.id.tab1).setChecked(true);
 
         fragmentManager.beginTransaction().hide(fragmentSub).commit();
-
-
 
         /* 하단 네비게이션바 클릭할때마다 동작 */
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
@@ -675,6 +654,11 @@ public class MainActivity extends AppCompatActivity {
     private long backKeyPressedTime = 0;
     private Toast toast;
 
+//    @Override
+//    protected void onNewIntent(Intent intent) {
+//        super.onNewIntent(intent);
+//        Log.d(TAG, "onNewIntent: 여기 동작?");
+//    }
 
     public void onBackPressed() {
         if (drawerLayout.isDrawerOpen(drawerView)) {
