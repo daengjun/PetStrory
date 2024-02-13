@@ -37,5 +37,5 @@
 
 <p dir="auto">  
 <a target="_blank" rel="noopener noreferrer nofollow" href="https://github.com/daengjun/PetStrory/assets/98893006/04b0f715-72f0-46fa-91a2-2531504d9c8b"><img width="40%" src="https://github.com/daengjun/PetStrory/assets/98893006/04b0f715-72f0-46fa-91a2-2531504d9c8b" style="max-width: 100%;"></a>
-<a target="_blank" rel="noopener noreferrer nofollow" href="https://github.com/daengjun/PetStrory/assets/98893006/35bed764-2c08-42a4-a5f2-950124ee51c9"><img width="40%" src="https://github.com/daengjun/PetStrory/assets/98893006/35bed764-2c08-42a4-a5f2-950124ee51c9" style="max-width: 100%;"></a>
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://github.com/daengjun/PetStrory/assets/98893006/373e91f9-413c-494e-8891-1436d3f5a35e"><img width="40%" src="https://github.com/daengjun/PetStrory/assets/98893006/373e91f9-413c-494e-8891-1436d3f5a35e" style="max-width: 100%;"></a>
 </p>  
