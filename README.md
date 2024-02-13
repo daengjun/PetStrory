@@ -31,11 +31,8 @@
 # **📝 Result**
 
 <p dir="auto">  
-<a target="_blank" rel="noopener noreferrer nofollow" href="https://github.com/daengjun/PetStrory/assets/98893006/b1bde6d8-08e1-437f-bbbc-dd70b08a61ca"><img width="40%" src="https://github.com/daengjun/PetStrory/assets/98893006/b1bde6d8-08e1-437f-bbbc-dd70b08a61ca" style="max-width: 100%;"></a>
-<p dir="auto">  
-<a target="_blank" rel="noopener noreferrer nofollow" href="https://github.com/daengjun/PetStrory/assets/98893006/04b0f715-72f0-46fa-91a2-2531504d9c8b"><img width="40%" src="https://github.com/daengjun/PetStrory/assets/98893006/04b0f715-72f0-46fa-91a2-2531504d9c8b" style="max-width: 100%;"></a>
-</p>  
+<a target="_blank" rel="noopener noreferrer nofollow" href="https://github.com/daengjun/PetStrory/assets/98893006/fc840f32-b9e9-40c2-9983-83fe5c7bbc3d"><img width="40%" src="https://github.com/daengjun/PetStrory/assets/98893006/fc840f32-b9e9-40c2-9983-83fe5c7bbc3d" style="max-width: 100%;"></a>
+    <a target="_blank" rel="noopener noreferrer nofollow" href="https://github.com/daengjun/PetStrory/assets/98893006/dfa99c00-48e1-4d19-a98a-e13d4672162a"><img width="40%" 
+src="https://github.com/daengjun/PetStrory/assets/98893006/dfa99c00-48e1-4d19-a98a-e13d4672162a" style="max-width: 100%;"></a>
+</p>
 
-
-<a target="_blank" rel="noopener noreferrer nofollow" href="https://github.com/daengjun/PetStrory/assets/98893006/373e91f9-413c-494e-8891-1436d3f5a35e"><img width="40%" src="https://github.com/daengjun/PetStrory/assets/98893006/373e91f9-413c-494e-8891-1436d3f5a35e" style="max-width: 100%;"></a>
-</p>  
